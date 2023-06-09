@@ -13,26 +13,91 @@
 </head>
 <body>
     <div class="cont-main">
-        <div class="cont-card-main">
-            <article class="card-gramar-main">
+        <div id="carouselExample" class="cont-card-main carousel slide">
+            <div class="carousel-inner card-carousel-cont">
+                <article class="card-gramar-main carousel-item active">
                     <section>
                         <section class="card-img-content">
                             <img src="../images/helado.jpg" alt="ice-cream-image" />
-                        </section>
+                     </section>
                     </section>
 
-                    <section class="card-title-content">
+                     <section class="card-title-content">
                         <label class="card-title-text">Delicioso</label>
                     </section>
 
                     <section class="card-write-answer">
-                        <input class="card-input" type="text" placeholder="write your answer">
+                        <input id="ice-cream" class="card-input" type="text" placeholder="write your answer">
 
-                        <button class="card-button">check</button>
+                         <button 
+                         class="card-button" 
+                         data-bs-toggle="modal" 
+                         data-bs-target="#staticBackdrop"  
+                         onclick="iceCreamCard()">
+                         check
+                        </button>
                     </section>
-            </article>
+                </article>
+
+                <article class="card-gramar-main carousel-item">
+                    <section>
+                        <section class="card-img-content">
+                            <img src="../images/pipoca.jpg" alt="ice-cream-image" />
+                        </section>
+                    </section>
+
+                    <section class="card-title-content">
+                        <label class="card-title-text">Salado</label>
+                    </section>
+
+                    <section class="card-write-answer">
+                        <input id="pop-corn" class="card-input" type="text" placeholder="write your answer">
+
+                        <button 
+                        class="card-button" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#staticBackdrop" 
+                        onclick="popCornCard()">
+                        check
+                        </button>
+                    </section>
+                </article>
+            </div>
+        <button id="back-carousel-button" class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button id="next-carousel-button"  class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" 
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <label class="modal-title fs-5 card-title-text" id="staticBackdropLabel">Good job</label>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modal-body" class="modal-body text-center">
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button 
+                    id="modal-button"
+                    class="card-button" 
+                    style="border-radius: 20px;" 
+                    data-bs-dismiss="modal"
+                    onclick="checkAnswer()">
+                    Okey
+                </button>
+                </div>
+            </div>
         </div>
     </div>
     <script src="../bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../scripts/application.js"></script>
 </body>
 </html>
