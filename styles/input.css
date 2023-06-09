@@ -1,0 +1,14 @@
+.card-input {
+    width: 70%;
+    height: 40px;
+    border: 1px solid #95DBFF;
+    box-shadow: 0 0 5px #95DBFF;
+    border-radius: 15px 0 0 15px;
+    padding: 10px;
+}
+
+.card-input:focus, .card-input:active {
+    border: 1px solid #95DBFF;
+    box-shadow: 1px 1px 10px #95DBFF;
+    outline: none;
+}
