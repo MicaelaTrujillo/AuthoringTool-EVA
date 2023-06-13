@@ -1,4 +1,12 @@
 function cargarTarjetas(){
+    var elementoPadre = document.getElementById("listaTarjetas")
+    var botonEliminar = document.getElementById("comenzar")
+
+    elementoPadre.classList.remove("boton-tarjeta")
+
+    elementoPadre = botonEliminar.parentNode
+    elementoPadre.removeChild(botonEliminar)
+
     console.log("first")
     for(var i = 0; i < tarjetas.length; i++){
         listaTarjetas.innerHTML += `<article class="card-gramar-main carousel-item active">

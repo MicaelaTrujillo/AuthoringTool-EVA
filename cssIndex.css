@@ -29,6 +29,21 @@ button:focus, button:active{
     background-color: #FAFAFF;
 }
 
+.boton-tarjeta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton-comenzar{
+    width: 30%;
+    height: 40px;
+    border: 1px solid #95DBFF;
+    background-color: #A6D9F7;
+    box-shadow: 0 0 5px #95DBFF;
+    border-radius: 15px;
+}
+
 .card-gramar-main{
     width: 100%;
     height: 100%;
@@ -108,4 +123,5 @@ button:focus, button:active{
     box-shadow: 1px 1px 10px #95DBFF;
     outline: none;
 }
+
 

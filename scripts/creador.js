@@ -15,7 +15,9 @@
   var contadorId = 1;
 
   function añadirTarjeta(){
-    cajaTarjetaFormulario.innerHTML += `<div id="formulario-${contadorId}" class="formulario">
+    let newCard = document.createElement("div");
+    newCard.innerHTML =  `
+    <div id="formulario-${contadorId}" class="formulario">
     <div class="cajas-input">
             <div>
                 <div>Imagen: </div>
@@ -99,8 +101,10 @@
             </div>
         </div>
     </div>`;
-
     contadorId++;
+
+    let mainContainer = document.getElementById("cajaTarjetaFormulario");
+    mainContainer.appendChild(newCard);
   }
 
   async function guardar2(){

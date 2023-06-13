@@ -10,7 +10,7 @@ authDomain: 'authoringtool-b1bfb.firebaseapp.com',
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-const nombreProyecto='ppp';
+const nombreProyecto='nuevo ivan';
 let tarjetas=[];
 db.collection('Proyecto').doc(nombreProyecto).collection('Tarjetas').get().then( querySnapshot =>{
 querySnapshot.forEach((doc) => {
