@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+ }
+
+ body{
+     height: 100%;
+     width: 100%;
+     background: #717EC3 !important;
+ }
+ .contenedor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    /*min-width: 100vw;
+    min-height: 100vh;--------Esta parte del codigo no funciona pero dejalo asi :) */
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    
+}
+
+.caja-formulario{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /*max-width: 900px;*/
+    width: 50vw;
+    padding-top: 20px;
+    
+    
+}
+.titulo{
+    padding: 10px;
+    justify-content: center;
+    background-color: #fff;
+    width: 40vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.formulario{
+    padding-inline: 40px;
+    padding-block: 20px;
+    justify-content: left;
+    background-color: #fff;
+    width: 40vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.cajas-input{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 400px;
+    margin-block: 15px;
+}
+.boton{
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
+}
+
+.titulo-input{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin: 0;
+}
