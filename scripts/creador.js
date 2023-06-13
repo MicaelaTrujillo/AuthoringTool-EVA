@@ -32,6 +32,14 @@
             <input id="respuesta-${contadorId}" style="margin-left: 8px;" class="form-control" type="text"/>
         </div>
     </div>
+    <div class="cajas-input">
+                        <div>
+                            <div>Descripción: </div>
+                        </div>
+                        <div>
+                            <input id="descripcion-${contadorId}" style="margin-left: 8px;" class="form-control" type="text"/>
+                        </div>
+                    </div>
     <div>
         <div>Posibles respuestas:</div>
             <div>
@@ -126,6 +134,7 @@ var posiblesResp = [document.getElementById('posibleResp-'+i+'.1').value,
 
 
         var respuestaCorrecta = document.getElementById("respuesta-"+j).value;
+        var descripcion=document.getElementById("descripcion-"+j).value;
                     var pr1 = document.getElementById('posibleResp-1'+j).value
                     var pr2 = document.getElementById('posibleResp-2'+j).value
                     var pr3 = document.getElementById('posibleResp-3'+j).value
@@ -141,6 +150,7 @@ var posiblesResp = [document.getElementById('posibleResp-'+i+'.1').value,
                     db.collection("Proyecto").doc(tituloProyecto).collection('Tarjetas').doc("Tarjeta"+j).set({
                         imagen: "downloadURL",
                         respuestaCorrecta: respuestaCorrecta,
+                        descripcion:descripcion,
                         posiblesRespuestas: posiblesResp,
                         pistas: pistas
                     })
@@ -186,6 +196,37 @@ var posiblesResp = [document.getElementById('posibleResp-'+i+'.1').value,
     );
         
     });
-       
-    
   }
+
+
+  document.querySelector("#guardar").addEventListener("click", async ()=>{
+    let nombreProyecto = document.getElementById('tituloProyecto').value;
+    let referencia;
+    try {
+      referencia = await window.showSaveFilePicker(
+        {suggestedName: 'tarjetas.js' ,  types: [ { description: "Formato", accept: { "text/plain": [".html",".js",".css"], } }, 
+      ]});
+    } catch(err) {
+      console.log("Se ha producido un error o se ha cancelado el proceso. " + err);
+      return;
+    }  	
+  let na= "const firebaseConfig = {\n"+ "apiKey: 'AIzaSyCJusAuajt_rqS-M25vBbZ3q_Ai1rYvzQI',\n"+
+   "authDomain: 'authoringtool-b1bfb.firebaseapp.com',\n"+" projectId: 'authoringtool-b1bfb', \n"+
+   " storageBucket: 'authoringtool-b1bfb.appspot.com',\n"+"  messagingSenderId: '850183606717',\n"+
+     " appId: '1:850183606717:web:5bede545f33574497642d4'\n"+"};\n\n"+"firebase.initializeApp(firebaseConfig);\n"+
+     "const db = firebase.firestore();\n\n"+"const nombreProyecto='"+nombreProyecto+"';\n"+"let tarjetas=[];\n"+
+     "db.collection('Proyecto').doc(nombreProyecto).collection('Tarjetas').get().then( querySnapshot =>{\n"+
+     "querySnapshot.forEach((doc) => {\n"+" tarjetas.push(doc.data(),\n"+")\n"+"})\n"+"})\n";
+    try {
+      // obtenemos el contenido
+      const contenido = na;
+      // guardamos el archivo
+      const archivo = await referencia.createWritable();				 
+      await archivo.write(contenido);
+      await archivo.close();				
+    } catch(err) {
+      alert("Error al guardar el archivo. " + err);
+    } 
+    window.location.href=`index.html?id=${nombreProyecto}`;					
+  });
+  
