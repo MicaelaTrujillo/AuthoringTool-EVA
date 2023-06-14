@@ -90,6 +90,6 @@ function checkAnswer(){
   function mensajeInactividad(id){
     var pistas = tarjetas[parseInt(id.slice(-1))].tarjeta.pistas;
     var random = Math.floor(Math.random() * pistas.length);
-    document.getElementById("modal-body").innerHTML = `No te congeles \u{1F976}! <br> Aquí tienes una pista "${pistas[random]}"`
+    document.getElementById("modal-body").innerHTML = `No te  addcongeles \u{1F976}! <br> Aquí tienes una pista "${pistas[random]}"`
     document.getElementById("modal-button").innerHTML = `Aceptar`
   }
