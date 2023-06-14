@@ -281,4 +281,23 @@ var posiblesResp = [document.getElementById('posibleResp-'+i+'.1').value,
     };
     reader.readAsDataURL(texto);
   }
-  
+
+
+    function generarZip(){
+//"C:\\Users\\Lenovo\\Documents\\UMSS MICA\\Electivas\\Entornos virtuales de aprendizaje\\Proyecto 2do parcial\\ATIvan\\AuthoringTool-EVA\\scripts\\tarjetas.js"
+        let na= "const firebaseConfig = {\n"+ "apiKey: 'AIzaSyCJusAuajt_rqS-M25vBbZ3q_Ai1rYvzQI',\n"+
+        "authDomain: 'authoringtool-b1bfb.firebaseapp.com',\n"+" projectId: 'authoringtool-b1bfb', \n"+
+        " storageBucket: 'authoringtool-b1bfb.appspot.com',\n"+"  messagingSenderId: '850183606717',\n"+
+            " appId: '1:850183606717:web:5bede545f33574497642d4'\n"+"};\n\n"+"firebase.initializeApp(firebaseConfig);\n"+
+            "const db = firebase.firestore();\n\n"+"const nombreProyecto='"+"nombreProyecto"+"';\n"+"let tarjetas=[];\n"+
+            "db.collection('Proyecto').doc(nombreProyecto).collection('Tarjetas').get().then( querySnapshot =>{\n"+
+            "querySnapshot.forEach((doc) => {\n"+" tarjetas.push({tarjeta:doc.data(),id:doc.id},\n"+")\n"+"})\n"+"})\n";
+
+        var zip = new JSZip();
+        zip.file("tarjetas.js",na);
+        //Content = zip.generate();
+        zip.generateAsync({type:"blob"}).then(function(contenido) {
+                saveAs(contenido, "archivo.zip");
+            });
+        //location.href="data:application/zip;base64," + content;
+    }
