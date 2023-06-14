@@ -4,24 +4,25 @@ var avance = 0;
 function cargarTarjetas(){
     var active = "active"
     var elementoPadre = document.getElementById("listaTarjetas")
-    var botonEliminar = document.getElementById("comenzar")
+    var startTolearnButton = document.getElementById("comenzar")
 
     elementoPadre.classList.remove("boton-tarjeta")
 
-    elementoPadre = botonEliminar.parentNode
-    elementoPadre.removeChild(botonEliminar)
+    elementoPadre = startTolearnButton.parentNode
+    elementoPadre.removeChild(startTolearnButton)
+    elementoPadre.removeChild(elementoPadre.querySelector("#listaTarjetas h4"))
 
-    console.log("first")
     for(var i = 0; i < tarjetas.length; i++){
-        listaTarjetas.innerHTML += `<article id="${tarjetas[i].id}T" class="card-gramar-main carousel-item ${active}">
-            <section>
-                <section class="card-img-content">
-                    <img src=${tarjetas[i].tarjeta.imagen} alt="ice-cream-image" />
-            </section>
+        listaTarjetas.innerHTML += `
+        <article id="${tarjetas[i].id}T" class="card-gramar-main carousel-item ${active}">
+            <section class="card-img-content">
+                <section>
+                    <img src=${tarjetas[i].tarjeta.imagen} alt="image" />
+                </section>
             </section>
 
             <section class="card-title-content">
-                <label class="card-title-text">${tarjetas[i].tarjeta.descripcion}</label>
+                    <label class="card-title-text">${tarjetas[i].tarjeta.descripcion}</label>
             </section>
 
             <section class="card-write-answer">
@@ -40,7 +41,6 @@ function cargarTarjetas(){
         </article>`
 
         var inputTarjeta = document.getElementById(tarjetas[i].id);
-        console.log(inputTarjeta)
         inputTarjeta.addEventListener("input", function(event) {
         clearTimeout(this.timeout); // Limpiar el timeout existente
         this.timeout = setTimeout(function() {
@@ -67,11 +67,8 @@ function verificar(id){
             avance++;
         }*/
     }else{
-        console.log(id.slice(-1))
         var correcta = tarjetas[parseInt(id.slice(-1))].tarjeta.respuestaCorrecta;
-        console.log(correcta,"corrrecta")
         let respuesta = document.getElementById(id).value;
-        console.log(respuesta)
         if(correcta.toUpperCase() == respuesta.toUpperCase()){
             let colorTarjeta = document.getElementById(id+"T")
             colorTarjeta.classList.add("color-tarjeta")
@@ -88,7 +85,6 @@ function verificar(id){
                 let resposible = tarjetas[parseInt(id.slice(-1))].tarjeta.posiblesRespuestas[i].trim();
                 let respuesta = document.getElementById(id).value.trim();
                 if(resposible.toUpperCase() == respuesta.toUpperCase()){
-                    console.log("entro")
                     document.getElementById("modal-body").innerHTML = `Casi lo consigues! \u{1F609} <br> La respuesta correcta inicia por "${correcta.slice(0,1)}"`
                     document.getElementById("modal-button").innerHTML = `Aceptar`
                     break;
@@ -119,4 +115,15 @@ function checkAnswer(){
     var random = Math.floor(Math.random() * pistas.length);
     document.getElementById("modal-body").innerHTML = `No te congeles \u{1F976}! <br> Aquí tienes una pista "${pistas[random]}"`
     document.getElementById("modal-button").innerHTML = `Aceptar`
+  }
+
+  document.addEventListener('DOMContentLoaded', listenToChange);
+
+  function listenToChange() {
+    var myCarousel = document.getElementById('carouselExample');
+    myCarousel.addEventListener('slid.bs.carousel', function() {
+      var activeCard = myCarousel.querySelector('.carousel-item.active');
+      //var cardId = activeCard.getAttribute('id');
+      console.log('ID del card actual:', activeCard);
+    });
   }
