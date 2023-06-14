@@ -44,6 +44,14 @@ button:focus, button:active{
     border-radius: 15px;
 }
 
+.color-tarjeta{
+    background-color: #85ff3376!important;
+}
+
+.color-tarjeta-fallo{
+    background-color: #ff333376!important;
+}
+
 .card-gramar-main{
     width: 100%;
     height: 100%;
