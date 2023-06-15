@@ -105,7 +105,7 @@ function timeController(tarjetaId) {
     var inputTarjeta = document.getElementById(tarjetaId);
     setTimeout(function() {
           showMessage(tarjetaId);
-    }, 8000);
+    }, 60000);
   }  
 
 
@@ -114,17 +114,17 @@ function timeController(tarjetaId) {
     var random = Math.floor(Math.random() * pistas.length);
     document.getElementById("modal-body").innerHTML = `No te congeles \u{1F976}! <br> Aquí tienes una pista "${pistas[random]}"`
     document.getElementById("modal-button").innerHTML = `Aceptar`
+    var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+    myModal.show();
   }
 
-
-
 document.addEventListener('DOMContentLoaded', listenToChange);
-
 function listenToChange() {
   let myCarousel = document.getElementById('carouselExample');
   myCarousel.addEventListener('slid.bs.carousel', function() {
     let activeCard = myCarousel.querySelector('.carousel-item.active');
-    
-    console.log('ID del card actual:', activeCard);
+    let section = activeCard.querySelector('section:nth-child(3)');
+    let input = section.querySelector('input');
+    timeController(input.id);
   });
 }
