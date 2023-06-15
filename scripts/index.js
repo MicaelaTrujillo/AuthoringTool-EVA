@@ -39,13 +39,17 @@ function cargarTarjetas(){
             </section>
         </article>`
 
-        controlarTiempo(tarjetaId);
         active = ""
         
     }
+    let myCarousel = document.getElementById('carouselExample');
+    let activeCard = myCarousel.querySelector('.carousel-item.active');
+    let section = activeCard.querySelector('section:nth-child(3)');
+    let input = section.querySelector('input');
+    timeController(input.id);
 
-   
 }
+
 
 function verificar(id){
     if(intentos == 3){
@@ -75,7 +79,6 @@ function verificar(id){
             let resposible = tarjetas[parseInt(id.slice(-1))].tarjeta.posiblesRespuestas[i].trim();
             let respuesta = document.getElementById(id).value.trim();
             if(resposible.toUpperCase() == respuesta.toUpperCase()){
-                console.log("entro")
                 document.getElementById("modal-body").innerHTML = `Casi lo consigues! \u{1F609} <br> La respuesta correcta es "${correcta}"`
                 document.getElementById("modal-button").innerHTML = `Continuar`
                 break;
@@ -98,37 +101,29 @@ function checkAnswer(){
     }
 }
 
-function controlarTiempo(tarjetaId) {
-    console.log("entra a la funcion" ,tarjetaId);
+function timeController(tarjetaId) {
     var inputTarjeta = document.getElementById(tarjetaId);
-    inputTarjeta.addEventListener("input", function(event) {
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(function() {
-          console.log("Ya han pasado 3 segundos de inactividad");
-          mensajeInactividad(tarjetaId);
-        }, 3000);
-      });
+    setTimeout(function() {
+          showMessage(tarjetaId);
+    }, 8000);
   }  
 
-  function mensajeInactividad(id){
+
+  function showMessage(id){
     var pistas = tarjetas[parseInt(id.slice(-1))].tarjeta.pistas;
     var random = Math.floor(Math.random() * pistas.length);
-    document.getElementById("modal-body").innerHTML = `No te  addcongeles \u{1F976}! <br> Aquí tienes una pista "${pistas[random]}"`
+    document.getElementById("modal-body").innerHTML = `No te congeles \u{1F976}! <br> Aquí tienes una pista "${pistas[random]}"`
     document.getElementById("modal-button").innerHTML = `Aceptar`
   }
 
-  setTimeout(function(){
-    document.getElementById("modal-body").innerHTML = `No te  addcongeles \u{1F976}! <br> Aquí tienes una pista "PISTA"`
-    document.getElementById("modal-button").innerHTML = `Aceptar`
-    console.log("Hola Mundo");
-}, 10000);
+
 
 document.addEventListener('DOMContentLoaded', listenToChange);
 
 function listenToChange() {
-  var myCarousel = document.getElementById('carouselExample');
+  let myCarousel = document.getElementById('carouselExample');
   myCarousel.addEventListener('slid.bs.carousel', function() {
-    var activeCard = myCarousel.querySelector('.carousel-item.active');
+    let activeCard = myCarousel.querySelector('.carousel-item.active');
     
     console.log('ID del card actual:', activeCard);
   });
