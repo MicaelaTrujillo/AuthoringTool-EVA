@@ -13,7 +13,7 @@ function cargarTarjetas(){
     for(var i = 0; i < tarjetas.length; i++){
         var tarjetaId = tarjetas[i].id;
         listaTarjetas.innerHTML += `
-        <article class="card-gramar-main carousel-item ${active}">
+        <article id="${tarjetas[i].id}T" class="card-gramar-main carousel-item ${active}">
             <section class="card-img-content">
                 <section>
                     <img src=${tarjetas[i].tarjeta.imagen} alt="ice-cream-image" />
@@ -42,6 +42,10 @@ function cargarTarjetas(){
         active = ""
         
     }
+
+    let botonFinalizar = document.getElementById("botonFinalizar")
+    botonFinalizar.innerHTML = `<button id="finalizar" class="boton-finalizar" type="button" onclick="end()">Finalizar</button>`
+
     let myCarousel = document.getElementById('carouselExample');
     let activeCard = myCarousel.querySelector('.carousel-item.active');
     let section = activeCard.querySelector('section:nth-child(3)');
@@ -72,25 +76,30 @@ function verificar(id){
     let respuesta = document.getElementById(id).value;
     console.log(respuesta)
     if(correcta.toUpperCase() == respuesta.toUpperCase()){
+        let colorTarjeta = document.getElementById(id+"T")
+        colorTarjeta.classList.add("color-tarjeta")
         document.getElementById("modal-body").innerHTML = `Felicidades, tu respuesta es correcta!!! \u{1F604}`
         document.getElementById("modal-button").innerHTML = `Continuar`
+        intentos=0
     }else{
         for( var i = 0; i<tarjetas[parseInt(id.slice(-1))].tarjeta.posiblesRespuestas.length; i++){
             let resposible = tarjetas[parseInt(id.slice(-1))].tarjeta.posiblesRespuestas[i].trim();
             let respuesta = document.getElementById(id).value.trim();
             if(resposible.toUpperCase() == respuesta.toUpperCase()){
-                document.getElementById("modal-body").innerHTML = `Casi lo consigues! \u{1F609} <br> La respuesta correcta es "${correcta}"`
-                document.getElementById("modal-button").innerHTML = `Continuar`
+                console.log("entro")
+                document.getElementById("modal-body").innerHTML = `Casi lo consigues! \u{1F609} <br> La respuesta correcta inicia por "${correcta.slice(0,1)}"`
+                document.getElementById("modal-button").innerHTML = `Aceptar`
                 break;
             }else{
                 var pistas = tarjetas[parseInt(id.slice(-1))].tarjeta.pistas;
-                var random = Math.floor(Math.random() * pistas.length);
-                document.getElementById("modal-body").innerHTML = `No es la respuesta esperada \u{2639} <br> Aquí tienes una pista "${pistas[random]}"`
-                document.getElementById("modal-button").innerHTML = `Aceptar`
+                    var random = Math.floor(Math.random() * pistas.length);
+                    document.getElementById("modal-body").innerHTML = `No es la respuesta esperada \u{2639} <br> Aquí tienes una pista "${pistas[random]}"`
+                    document.getElementById("modal-button").innerHTML = `Aceptar`
             }
         }
         
     }
+    intentos++;
 }
 }
 
