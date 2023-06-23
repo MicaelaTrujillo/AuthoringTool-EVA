@@ -1,6 +1,5 @@
 //inicializamos el objeto scorm
 let scorm = pipwerks.SCORM;
-
 //Funcion para inicializar el curso
 function init() {
     scorm.version = "1.2";
@@ -13,9 +12,20 @@ function init() {
 
 //Asigna el curso como completado-SUCCESS
 function CompletarCurso() {
+    console.log(score)
     Mensaje("Marcando actividad como completada.");
-    let respuesta = scorm.set("cmi.core.lesson_status", "completed");
-    Mensaje("¿Actividad completada? " + respuesta);
+    respuesta = scorm.set("cmi.core.lesson_status", "completed");
+    scorm.set("cmi.core.score.raw", score);
+    scorm.set("cmi.core.score.min", "0");
+    scorm.set("cmi.core.score.max", "100");
+    if (score == 100){
+        scorm.set("cmi.core.lesson_status", "passed");
+    }
+    else{
+        scorm.set("cmi.core.lesson_status", "failed");
+    }
+    scorm.set("cmi.core.exit", "");
+    Mensaje("¿Actividad completada? " + respuesta); 
 }
 
 // Pregunta ala plataforma por el nombre del usuario
