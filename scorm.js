@@ -42,6 +42,7 @@ function end() {
     Mensaje("Conexion terminada.");
     let respuesta = scorm.quit();
     Mensaje("Termino correctamente? " + respuesta);
+    location.reload()
 }
 
 //Manda un Alert al usuario

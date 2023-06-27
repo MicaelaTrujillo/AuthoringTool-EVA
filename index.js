@@ -106,6 +106,7 @@ function verificar(id){
     if(correcta.toUpperCase() == respuesta.toUpperCase()){
         let colorTarjeta = document.getElementById(id+"T")
         colorTarjeta.classList.add("color-tarjeta")
+        document.getElementById(id).readOnly = true;
         document.getElementById("modal-body").innerHTML = `Felicidades, tu respuesta es correcta!!! \u{1F604}`
         document.getElementById("modal-button").innerHTML = `Continuar`
         intentos=0

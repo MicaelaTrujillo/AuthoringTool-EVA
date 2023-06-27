@@ -202,7 +202,7 @@ var posiblesResp = [document.getElementById('posibleResp-'+i+'.1').value,
     });
   }
 
-
+/*
   document.querySelector("#guardar").addEventListener("click", async ()=>{
     
     //descargar(generarArchivo(),'tarjetas.js')
@@ -233,71 +233,112 @@ var posiblesResp = [document.getElementById('posibleResp-'+i+'.1').value,
         } catch(err) {
         alert("Error al guardar el archivo. " + err);
         } 
-        window.location.href=`index.html?id=${nombreProyecto}`;
-   });
+        //window.location.href=`index.html?id=${nombreProyecto}`;
+   });*/
 
-  function generarArchivo(){
+   function ver(){
     let nombreProyecto = document.getElementById('tituloProyecto').value;
-    var texto = [];
-    texto.push("const firebaseConfig = {\n")
-    texto.push("apiKey: 'AIzaSyCJusAuajt_rqS-M25vBbZ3q_Ai1rYvzQI',\n")
-    texto.push("authDomain: 'authoringtool-b1bfb.firebaseapp.com',\n")
-    texto.push(" projectId: 'authoringtool-b1bfb', \n")
-    texto.push(" storageBucket: 'authoringtool-b1bfb.appspot.com',\n")
-    texto.push("  messagingSenderId: '850183606717',\n")
-    texto.push(" appId: '1:850183606717:web:5bede545f33574497642d4'\n")
-    texto.push("};\n\n")
-    texto.push("firebase.initializeApp(firebaseConfig);\n")
-    texto.push( "const db = firebase.firestore();\n\n")
-    texto.push("const nombreProyecto='"+nombreProyecto+"';\n")
-    texto.push("let tarjetas=[];\n")
-    texto.push("db.collection('Proyecto').doc(nombreProyecto).collection('Tarjetas').get().then( querySnapshot =>{\n")
-    texto.push( "querySnapshot.forEach((doc) => {\n")
-    texto.push(" tarjetas.push({tarjeta:doc.data(),id:doc.id},\n")
-    texto.push(")\n")
-    texto.push("})\n")
-    texto.push("})\n")
+    window.location.href=`index.html?id=${nombreProyecto}`;
+   }
 
-    return new Blob(texto, {
-        type: 'text/plain'
-    });
-  }
-
-
-  function descargar(texto, nombre){
-    var reader = new FileReader();
-    reader.onload = function (event) {
-        var save = document.createElement('a');
-        save.href = event.target.result;
-        save.target = '_blank';
-        save.download = nombre || 'tarjetas.js';
-        var clicEvent = new MouseEvent('click', {
-        'view': window,
-        'bubbles': true,
-        'cancelable': true
-        });
-        save.dispatchEvent(clicEvent);
-        (window.URL || window.webkitURL).revokeObjectURL(save.href);
-    };
-    reader.readAsDataURL(texto);
-  }
-
-
-    function generarZip(){
-//"C:\\Users\\Lenovo\\Documents\\UMSS MICA\\Electivas\\Entornos virtuales de aprendizaje\\Proyecto 2do parcial\\ATIvan\\AuthoringTool-EVA\\scripts\\tarjetas.js"
+    async function generarZip(){
+        var nombreProyecto=document.getElementById('tituloProyecto').value;
+        let ruta = "./scripts";
         let na= "const firebaseConfig = {\n"+ "apiKey: 'AIzaSyCJusAuajt_rqS-M25vBbZ3q_Ai1rYvzQI',\n"+
         "authDomain: 'authoringtool-b1bfb.firebaseapp.com',\n"+" projectId: 'authoringtool-b1bfb', \n"+
         " storageBucket: 'authoringtool-b1bfb.appspot.com',\n"+"  messagingSenderId: '850183606717',\n"+
             " appId: '1:850183606717:web:5bede545f33574497642d4'\n"+"};\n\n"+"firebase.initializeApp(firebaseConfig);\n"+
-            "const db = firebase.firestore();\n\n"+"const nombreProyecto='"+"nombreProyecto"+"';\n"+"let tarjetas=[];\n"+
+            "const db = firebase.firestore();\n\n"+"const nombreProyecto='"+nombreProyecto+"';\n"+"let tarjetas=[];\n"+
             "db.collection('Proyecto').doc(nombreProyecto).collection('Tarjetas').get().then( querySnapshot =>{\n"+
             "querySnapshot.forEach((doc) => {\n"+" tarjetas.push({tarjeta:doc.data(),id:doc.id},\n"+")\n"+"})\n"+"})\n";
 
         var zip = new JSZip();
         zip.file("tarjetas.js",na);
         //Content = zip.generate();
+        await añadirArchivosZip("../bootstrap.bundle.js",zip,"bootstrap.bundle.js")
+        await añadirArchivosZip("../bootstrap.css",zip,"bootstrap.css")
+        await añadirArchivosZip("../cssIndex.css",zip,"cssIndex.css")
+        await añadirArchivosZip("../imsmanifest.xml",zip,"imsmanifest.xml")
+        await añadirArchivosZip("../index.html",zip,"index.html")
+        await añadirArchivosZip("../index.js",zip,"index.js")
+        await añadirArchivosZip("../SCORM_API_wrapper.js",zip,"SCORM_API_wrapper.js")
+        await añadirArchivosZip("../scorm.js",zip,"scorm.js")
         zip.generateAsync({type:"blob"}).then(function(contenido) {
-                saveAs(contenido, "archivo.zip");
+                saveAs(contenido, nombreProyecto+".zip");
             });
         //location.href="data:application/zip;base64," + content;
     }
+
+
+    function añadirArchivosZip(filePath,zip,fileName){
+        return new Promise(function(resolve,reject){
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", filePath,true);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200){
+                        var fileContent = xhr.responseText;
+                        zip.file(fileName, fileContent);
+                        console.log("Adiciono el archivo");
+                        resolve();
+                    }else{
+                        console.log("Error al obtener el archivo");
+                        reject();
+                    }
+                }
+            }
+            xhr.send();
+        })
+    }
+
+
+
+
+//extas
+
+
+    function generarArchivo(){
+        let nombreProyecto = document.getElementById('tituloProyecto').value;
+        var texto = [];
+        texto.push("const firebaseConfig = {\n")
+        texto.push("apiKey: 'AIzaSyCJusAuajt_rqS-M25vBbZ3q_Ai1rYvzQI',\n")
+        texto.push("authDomain: 'authoringtool-b1bfb.firebaseapp.com',\n")
+        texto.push(" projectId: 'authoringtool-b1bfb', \n")
+        texto.push(" storageBucket: 'authoringtool-b1bfb.appspot.com',\n")
+        texto.push("  messagingSenderId: '850183606717',\n")
+        texto.push(" appId: '1:850183606717:web:5bede545f33574497642d4'\n")
+        texto.push("};\n\n")
+        texto.push("firebase.initializeApp(firebaseConfig);\n")
+        texto.push( "const db = firebase.firestore();\n\n")
+        texto.push("const nombreProyecto='"+nombreProyecto+"';\n")
+        texto.push("let tarjetas=[];\n")
+        texto.push("db.collection('Proyecto').doc(nombreProyecto).collection('Tarjetas').get().then( querySnapshot =>{\n")
+        texto.push( "querySnapshot.forEach((doc) => {\n")
+        texto.push(" tarjetas.push({tarjeta:doc.data(),id:doc.id},\n")
+        texto.push(")\n")
+        texto.push("})\n")
+        texto.push("})\n")
+    
+        return new Blob(texto, {
+            type: 'text/plain'
+        });
+      }
+    
+    
+      function descargar(texto, nombre){
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var save = document.createElement('a');
+            save.href = event.target.result;
+            save.target = '_blank';
+            save.download = nombre || 'tarjetas.js';
+            var clicEvent = new MouseEvent('click', {
+            'view': window,
+            'bubbles': true,
+            'cancelable': true
+            });
+            save.dispatchEvent(clicEvent);
+            (window.URL || window.webkitURL).revokeObjectURL(save.href);
+        };
+        reader.readAsDataURL(texto);
+      }

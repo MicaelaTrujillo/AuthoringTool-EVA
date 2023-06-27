@@ -10,7 +10,12 @@ authDomain: 'authoringtool-b1bfb.firebaseapp.com',
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-const nombreProyecto='Las frutas';
+var queryString = window.location.search;
+var urlParams = new URLSearchParams(queryString);
+var anuncioParam = urlParams.get('id');
+console.log(anuncioParam,"es el id url")
+
+const nombreProyecto=anuncioParam;
 let tarjetas=[];
 db.collection('Proyecto').doc(nombreProyecto).collection('Tarjetas').get().then( querySnapshot =>{
 querySnapshot.forEach((doc) => {
