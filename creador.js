@@ -163,6 +163,17 @@ var posiblesResp = [document.getElementById('posibleResp-'+i+'.1').value,
 
 
     images.forEach(image => {
+        let progressBarContainer = document.getElementById("progress-bar-container");
+        console.log(progressBarContainer);
+        progressBarContainer.innerHTML = `
+            <progress id="progressBar" value="0" max="${images.length}"></progress>
+            <p id="progressMessage">Progress: 0%</p>
+        `;
+
+        let progressBar = document.getElementById('progressBar');
+        let progressMessage = document.getElementById('progressMessage');
+        let cont = 0;
+
         var uploadTask = storageRef.child('Imagenes/'+image.name).put(image);
     // Listen for state changes, errors, and completion of the upload.
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -194,6 +205,8 @@ var posiblesResp = [document.getElementById('posibleResp-'+i+'.1').value,
                 },console.log(cont,"cont",images),
                 cont++)
                 
+                progressBar.value = cont + 1;
+                progressMessage.innerHTML = `Progress: ${(cont + 1) / images.length * 100}%`;
             });
             
         }
