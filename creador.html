@@ -109,12 +109,12 @@
                     </div>
                 </div>
             </div>
-            <div id="progress-bar-container"></div>
-            <div class="boton">
-                <button  type="button" id="guardar" class="btn btn-dark" onclick="guardar()">GUARDAR</button>
-                <button  type="button" id="añadir" class="btn btn-dark" onclick="añadirTarjeta()">AÑADIR TARJETA</button>
-                <button  type="button" id="añadir" class="btn btn-dark" onclick="generarZip()">SCORM</button>
-                <button  type="button" id="añadir" class="btn btn-dark" onclick="ver()">VER</button>
+            <div id="progress-bar-container" class="w-75 d-flex align-items-center flex-column"></div>
+            <div class="boton d-flex flex-wrap w-75">
+                <button  type="button" id="guardar" class="btn btn-dark" style="width: 23%;" onclick="guardar()">GUARDAR</button>
+                <button  type="button" id="añadir" class="btn btn-dark" style="width: 23%;" onclick="añadirTarjeta()">AÑADIR</button>
+                <button  type="button" id="scorm" class="btn btn-dark" style="width: 23%;" onclick="generarZip()" disabled>SCORM</button>
+                <button  type="button" id="ver" class="btn btn-dark" style="width: 23%;" onclick="ver()" disabled>VER</button>
             </div>
         </div>
     </div>

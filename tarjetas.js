@@ -17,9 +17,13 @@ console.log(anuncioParam,"es el id url")
 
 const nombreProyecto=anuncioParam;
 let tarjetas=[];
-db.collection('Proyecto').doc(nombreProyecto).collection('Tarjetas').get().then( querySnapshot =>{
-querySnapshot.forEach((doc) => {
- tarjetas.push({tarjeta:doc.data(),id:doc.id},
-)
-})
+db.collection('Proyecto').doc(nombreProyecto).collection('Tarjetas').get()
+.then( querySnapshot => {
+    querySnapshot.forEach((doc) => {
+        tarjetas.push({tarjeta:doc.data(),id:doc.id})
+    });
+    let startButton = document.getElementById("comenzar");
+    startButton.val
+    startButton.disabled  = false;
+    startButton.textContent = "Comenzar"
 })

@@ -166,13 +166,13 @@ var posiblesResp = [document.getElementById('posibleResp-'+i+'.1').value,
         let progressBarContainer = document.getElementById("progress-bar-container");
         console.log(progressBarContainer);
         progressBarContainer.innerHTML = `
-            <progress id="progressBar" value="0" max="${images.length}"></progress>
+            <progress id="progressBar" class="w-75" value="0" max="${images.length}"></progress>
             <p id="progressMessage">Progress: 0%</p>
         `;
 
         let progressBar = document.getElementById('progressBar');
         let progressMessage = document.getElementById('progressMessage');
-        let cont = 0;
+        let counter = 0;
 
         var uploadTask = storageRef.child('Imagenes/'+image.name).put(image);
     // Listen for state changes, errors, and completion of the upload.
@@ -205,10 +205,12 @@ var posiblesResp = [document.getElementById('posibleResp-'+i+'.1').value,
                 },console.log(cont,"cont",images),
                 cont++)
                 
-                progressBar.value = cont + 1;
-                progressMessage.innerHTML = `Progress: ${(cont + 1) / images.length * 100}%`;
+                counter = counter + 1;
+                progressBar.value = counter;
+                progressMessage.innerHTML = `Progress: ${(counter) / images.length * 100}%`;
             });
-            
+            document.getElementById("scorm").disabled = false;
+            document.getElementById("ver").disabled = false;
         }
     );
         
