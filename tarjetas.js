@@ -22,8 +22,4 @@ db.collection('Proyecto').doc(nombreProyecto).collection('Tarjetas').get()
     querySnapshot.forEach((doc) => {
         tarjetas.push({tarjeta:doc.data(),id:doc.id})
     });
-    let startButton = document.getElementById("comenzar");
-    startButton.val
-    startButton.disabled  = false;
-    startButton.textContent = "Comenzar"
 })
